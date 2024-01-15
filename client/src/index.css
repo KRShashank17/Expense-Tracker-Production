@@ -7,3 +7,10 @@
 .content{
   height: 83vh;
 }
+
+.register-style{
+  display : flex;
+  align-items: center;
+  justify-content: center;
+  height: 90vh;
+}

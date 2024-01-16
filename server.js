@@ -19,9 +19,7 @@ app.use(express.json());
 app.use(morgan('dev'));
 
 // routes
-app.get('/' , (req, res)=>{
-    res.send("Server is running...");
-})
+app.use("/api/v1/users" , require("./router/userRouter"));
 
 const PORT = 8000 || process.env.PORT;
 

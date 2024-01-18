@@ -6,7 +6,7 @@ import Spinner from '../components/Spinner'
 
 const Login = () => {
     const [loading , setLoading] = useState(false);
-    const navigate = useNavigate;
+    const navigate = useNavigate();
     // on submit
     const submitHandler = async(values)=>{
       try {
@@ -18,7 +18,7 @@ const Login = () => {
         navigate("/");
       } catch (error) {
         setLoading(false);
-        message.error("Incorrect Username or Password");
+        message.error("Login - User NOT Found");
       }
     }
     

@@ -6,7 +6,7 @@ const loginController = async(req , res) => {
         const user = await userModel.findOne({email , password})
 
         if (!user){
-            res.status(404).send('User Not Found');
+            return res.status(404).send('User Not Found');
         }
         res.status(200).json({
             status : true, 

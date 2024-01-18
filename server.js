@@ -19,7 +19,7 @@ app.use(express.json());
 app.use(morgan('dev'));
 
 // routes
-app.use("/api/v1/users" , require("./router/userRouter"));
+app.use("/api/v1/users" , require("./routes/userRoute"));
 
 const PORT = 8000 || process.env.PORT;
 

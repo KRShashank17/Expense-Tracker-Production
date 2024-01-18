@@ -1,16 +1,31 @@
-import React from 'react'
-import {Form, Input} from 'antd'
-import { Link } from 'react-router-dom'
+import React , {useState} from 'react'
+import {Form, Input , message} from 'antd'
+import { Link, useNavigate } from 'react-router-dom'
+import axios from 'axios'
+import Spinner from '../components/Spinner'
 
 const Login = () => {
-    
+    const [loading , setLoading] = useState(false);
+    const navigate = useNavigate;
     // on submit
-    const submitHandler = (values)=>{
-        console.log(values);
+    const submitHandler = async(values)=>{
+      try {
+        setLoading(true);
+        const {data} = await axios.post("/users/login" , values);
+        setLoading(false);
+        message.success("Login Successful");
+        localStorage.setItem("user", JSON.stringify({...data , passoword:''}));
+        navigate("/");
+      } catch (error) {
+        setLoading(false);
+        message.error("Incorrect Username or Password");
       }
+    }
     
       return (
         <>
+        {loading && < Spinner/>}
+
           <div className='register-style'>
             <Form layout='vertical'  onFinish={submitHandler}>
               <h1>LOGIN</h1>

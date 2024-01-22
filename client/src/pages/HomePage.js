@@ -5,6 +5,7 @@ import axios from 'axios'
 import Spinner from '../components/Spinner'
 import moment from 'moment'
 import {UnderlineOutlined, AreaChartOutlined, UnorderedListOutlined} from '@ant-design/icons'
+import Analytics from '../components/Analytics';
 
 const {RangePicker} = DatePicker;
 
@@ -133,7 +134,10 @@ const HomePage = () => {
 
         </div>
         <div className="content">
-            <Table columns={columns} dataSource={allTransaction}/>
+            {viewDate === 'table' ?
+              <Table columns={columns} dataSource={allTransaction}/>
+            : <Analytics allTransaction = {allTransaction} />         // passing allTrans to Anlytics file
+            }
         </div>
 
         <Modal 

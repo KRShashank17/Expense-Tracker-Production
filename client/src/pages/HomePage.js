@@ -4,6 +4,7 @@ import Layout from '../components/Layout/Layout'
 import axios from 'axios'
 import Spinner from '../components/Spinner'
 import moment from 'moment'
+import {UnderlineOutlined, AreaChartOutlined, UnorderedListOutlined} from '@ant-design/icons'
 
 const {RangePicker} = DatePicker;
 
@@ -13,7 +14,8 @@ const HomePage = () => {
   const [allTransaction , setAllTransaction] = useState([]);   // empty array
   const [frequency , setFrequency] = useState('7');
   const [selectedDate, setSelectedDate] = useState([]);
-  const [type , setType] = useState("all")
+  const [type , setType] = useState("all");
+  const [viewDate , setViewData] = useState('table');
 
   
   const submitHandler = async(values)=>{
@@ -114,6 +116,14 @@ const HomePage = () => {
 
             {frequency === 'custom' && 
             <RangePicker value={selectedDate} onChange={(values)=> setSelectedDate(values)} /> }
+          </div>
+
+          <div className="switch-icons">
+            <UnorderedListOutlined className={`mx-2  ${viewDate === 'table' ? 'active-icon' : 'inactive-icon'}`} 
+            onClick={()=> setViewData('table')}/>
+
+            <AreaChartOutlined className={`mx-2  ${viewDate === 'analytics' ? 'active-icon' : 'inactive-icon'}`} 
+            onClick={()=> setViewData('analytics')}/>
           </div>
 
           <div >

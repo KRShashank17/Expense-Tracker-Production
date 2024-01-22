@@ -1,5 +1,5 @@
 import React , {useEffect, useState} from 'react';
-import {Form, Input, Modal, Select, message} from 'antd'
+import {Form, Input, Modal, Select, Table, message} from 'antd'
 import Layout from '../components/Layout/Layout'
 import axios from 'axios'
 import Spinner from '../components/Spinner'
@@ -9,6 +9,7 @@ const HomePage = () => {
   const [loading , setLoading] = useState(false);
   const [allTransaction , setAllTransaction] = useState([]);   // empty array
 
+  
   const submitHandler = async(values)=>{
     try {
       const user = JSON.parse(localStorage.getItem('user'));
@@ -39,6 +40,37 @@ const HomePage = () => {
     }
   }
 
+  // Table data
+  const columns = [
+    {
+      title : "Date",
+      dataIndex : "date",
+    },
+    {
+      title : "Amount",
+      dataIndex : "amount",
+    },
+    {
+      title : "Type",
+      dataIndex : "type",
+    },
+    {
+      title : "Category",
+      dataIndex : "category",
+    },
+    {
+      title : "Description",
+      dataIndex : "description",
+    },
+    {
+      title : "Reference",
+      dataIndex : "reference",
+    },
+    {
+      title : "Actions"
+    }
+  ];
+
   useEffect( ()=>{
     getAllTransactions();
   } , [])
@@ -54,7 +86,9 @@ const HomePage = () => {
           </div>
 
         </div>
-        <div className="content"></div>
+        <div className="content">
+            <Table columns={columns} dataSource={allTransaction}/>
+        </div>
 
         <Modal 
         title= "Add Transaction"

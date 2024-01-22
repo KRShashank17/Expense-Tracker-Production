@@ -3,6 +3,6 @@ const { addTransaction, getAllTransaction } = require('../controller/transaction
 const router = express.Router();
 
 router.post('/add-transaction', addTransaction);
-router.get('/get-transaction', getAllTransaction);
+router.post('/get-transaction', getAllTransaction);
 
 module.exports = router;

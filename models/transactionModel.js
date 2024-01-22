@@ -1,28 +1,32 @@
 const mongoose = require('mongoose');
 
 const transactionSchema = new mongoose.Schema( {
+    userid : {
+        type : String, 
+        required : true
+    },
     amount :{
-            type : Number,
-            required : [true, "amount required"]
+        type : Number,
+        required : [true, "amount required"]
     },
     type : {
         type : String, 
         required : [true , "type is required"]
     },
     category : {
-            type : String , 
-            required : [true, "category required"]
+        type : String , 
+        required : [true, "category required"]
     },
     reference : {
-            type : String
+        type : String
     },
     description : {
-            type : String,
-            required : [true, "description required"]
+        type : String,
+        required : [true, "description required"]
     },
     date : {
-            type : String,
-            required : [true, "date is required"]
+        type : String,
+        required : [true, "date is required"]
     }
 },{timestamps: true})
 

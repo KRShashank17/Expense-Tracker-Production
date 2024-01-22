@@ -1,14 +1,30 @@
 import React , {useState} from 'react';
-import {Form, Input, Modal, Select} from 'antd'
+import {Form, Input, Modal, Select, message} from 'antd'
 import Layout from '../components/Layout/Layout'
+import axios from 'axios'
+import Spinner from '../components/Spinner'
 
 const HomePage = () => {
-  const [showModal , setShowModal] = useState(false)
-  const submitHandler = (value)=>{
-    console.log(value);
+  const [showModal , setShowModal] = useState(false);
+  const [loading , setLoading] = useState(false);
+
+  const submitHandler = async(values)=>{
+    try {
+      const user = JSON.parse(localStorage.getItem('user'));
+      setLoading(true);
+      await axios.post('/transactions/add-transaction' , {...values , userid : user._id});
+      setLoading(false);
+      message.success("Transaction Added Successfully")
+      setShowModal(false);
+
+    } catch (error) {
+      setLoading(false);
+      message.error("Failed to Add Transaction");
+    }
   }
   return (
     <Layout>
+      {loading && <Spinner />}
         <div className="filters">
           <div >Range Filters</div>
           <div >
@@ -39,6 +55,7 @@ const HomePage = () => {
               <Select >
                   <Select.Option value="food">Food</Select.Option>
                   <Select.Option value="fee">Fee</Select.Option>
+                  <Select.Option value="bill">Bill</Select.Option>
                   <Select.Option value="rent">Rent</Select.Option>
                   <Select.Option value="medical">Medical</Select.Option>
                   <Select.Option value="movie">Movie</Select.Option>

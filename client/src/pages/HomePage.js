@@ -1,4 +1,4 @@
-import React , {useState} from 'react';
+import React , {useEffect, useState} from 'react';
 import {Form, Input, Modal, Select, message} from 'antd'
 import Layout from '../components/Layout/Layout'
 import axios from 'axios'
@@ -7,6 +7,7 @@ import Spinner from '../components/Spinner'
 const HomePage = () => {
   const [showModal , setShowModal] = useState(false);
   const [loading , setLoading] = useState(false);
+  const [allTransaction , setAllTransaction] = useState([]);   // empty array
 
   const submitHandler = async(values)=>{
     try {
@@ -22,6 +23,26 @@ const HomePage = () => {
       message.error("Failed to Add Transaction");
     }
   }
+
+  const getAllTransactions = async() => {
+    try {
+      const user = JSON.parse(localStorage.getItem('user'));
+      setLoading(true);
+      const res = await axios.post('/transactions/get-transaction', {userid : user._id});
+      setLoading(false);
+      setAllTransaction(res.data);
+      console.log(res.data);
+    } catch (error) {
+      setLoading(false);
+      console.log(error);
+      message.error("Failed to Fetch Transaction");
+    }
+  }
+
+  useEffect( ()=>{
+    getAllTransactions();
+  } , [])
+
   return (
     <Layout>
       {loading && <Spinner />}

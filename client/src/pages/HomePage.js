@@ -52,6 +52,19 @@ const HomePage = () => {
     }
   }
 
+  const deleteHandler = async(record) => {
+    try {
+      setLoading(true);
+      await axios.post('/transactions/delete-transaction', {transactionId : record._id});
+      setLoading(false);
+      message.success("Transaction Deleted Successfully");
+    }catch(error){
+      setLoading(false);
+      console.log(error);
+      message.error('Failed to Delete')
+    }
+  }
+
   // Table data
   const columns = [
     {
@@ -87,7 +100,8 @@ const HomePage = () => {
             setEditable(record);
             setShowModal(true);
           }}/>
-          <DeleteOutlined className = "mx-2"/>
+          <DeleteOutlined className = "mx-2" 
+          onClick = {()=> {deleteHandler(record)}}/>
         </div>
       )
     }

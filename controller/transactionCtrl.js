@@ -50,4 +50,14 @@ const editTransaction = async(req,res)=>{
     }
 };
 
-module.exports = {addTransaction, getAllTransaction , editTransaction}
+const deleteTransaction = async(req, res) => {
+    try{
+        await transactionModel.findOneAndDelete({ _id: req.body.transactionId });
+        res.status(200).send("Transaction Deleted Successfully");
+    }catch(error){
+        console.log(error);
+        res.status(500).json(error);
+    }
+}
+
+module.exports = {addTransaction, getAllTransaction , editTransaction , deleteTransaction}

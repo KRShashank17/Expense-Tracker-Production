@@ -2,6 +2,19 @@ import React from 'react'
 import { Progress } from 'antd'
 
 const Analytics = ({allTransaction }) => {
+        // category
+    const categories = [
+        "food",
+        "fee",
+        "salary",
+        "bill",
+        "rent",
+        "medical",
+        "movie",
+        "petrol",
+        "others"
+    ]
+        
         // Transactions
     const totalTransaction = allTransaction.length
     const totalIncomeTransaction = allTransaction.filter((transcation) => transcation.type === "income");
@@ -73,6 +86,52 @@ const Analytics = ({allTransaction }) => {
                 </div>
             </div>
         </div>
+
+
+        <div className="row mt-3">
+            <div className="col-md-4">
+                <h4> CategoryWise Income </h4>
+                {
+                    categories.map(category => {
+                        const amount = allTransaction.filter(transaction => transaction.type === 'income' && transaction.category === category)
+                        .reduce((sum,transaction) => sum + transaction.amount , 0);
+
+                        return (
+                            amount > 0 && 
+                            <div className="card">
+                                <div className="card-body">
+                                    <h5> {category} </h5>
+                                    <Progress percent = {((amount/totalIncomeTurnover) * 100).toFixed(0)} />
+                                </div>
+                            </div>
+                        )
+                    })
+                }
+            </div>
+
+            <div className="col-md-4">
+                <h4> CategoryWise Expense </h4>
+                {
+                    categories.map(category => {
+                        const amount = allTransaction.filter(transaction => transaction.type === 'expense' && transaction.category === category)
+                        .reduce((sum,transaction) => sum + transaction.amount , 0);
+
+                        return (
+                            amount > 0 && 
+                            <div className="card">
+                                <div className="card-body">
+                                    <h5> {category} </h5>
+                                    <Progress percent = {((amount/totalExpenseTurnover) * 100).toFixed(0)} />
+                                </div>
+                            </div>
+                        )
+                    })
+                }
+            </div>
+
+        </div>
+
+
     </>
   )
 }

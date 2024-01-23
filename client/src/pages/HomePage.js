@@ -160,6 +160,7 @@ const HomePage = () => {
               <Select >
                   <Select.Option value="food">Food</Select.Option>
                   <Select.Option value="fee">Fee</Select.Option>
+                  <Select.Option value="salary">Salary</Select.Option>
                   <Select.Option value="bill">Bill</Select.Option>
                   <Select.Option value="rent">Rent</Select.Option>
                   <Select.Option value="medical">Medical</Select.Option>

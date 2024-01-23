@@ -6,13 +6,7 @@
 
 .content{
   height: 100vh;
-}
-
-.register-style{
-  display : flex;
-  align-items: center;
-  justify-content: center;
-  height: 90vh;
+  /* background-color: #829ab1; */
 }
 
 /* transactions page  */
@@ -22,6 +16,7 @@
   justify-content: space-between;
   padding : 15px;
   box-shadow: 0 0 10px gray;
+  /* background-color: #829ab1; */
 }
 
 /* antd icons */

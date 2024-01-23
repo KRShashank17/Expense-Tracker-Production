@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link , useNavigate} from 'react-router-dom';
 import {message} from 'antd'
+import "../../styles/HeaderStyles.css"
 
 const Header = () => {
   const [loginUser , setLoginUser] = useState('');
@@ -21,7 +22,7 @@ const Header = () => {
   return (
     <>
         {/* Responsive NavBar Bootstrap */}
-      <nav className="navbar navbar-expand-lg bg-body-tertiary">
+      <nav className="navbar navbar-expand-lg bg-light">
         <div className="container-fluid">
           <button
             className="navbar-toggler"

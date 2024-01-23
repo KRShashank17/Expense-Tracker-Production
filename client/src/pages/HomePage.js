@@ -132,7 +132,7 @@ const HomePage = () => {
   } , [frequency , selectedDate , type]);
 
   return (
-    <Layout>
+    <Layout >
       {loading && <Spinner />}
         <div className="filters">
           <div >
@@ -176,7 +176,7 @@ const HomePage = () => {
         </div>
         <div className="content">
             {viewDate === 'table' ?
-              <Table columns={columns} dataSource={allTransaction}/>
+              <Table  columns={columns} dataSource={allTransaction}/>
             : <Analytics allTransaction = {allTransaction} />         // passing allTrans to Anlytics file
             }
         </div>

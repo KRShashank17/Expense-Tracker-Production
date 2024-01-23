@@ -4,7 +4,7 @@ import Layout from '../components/Layout/Layout'
 import axios from 'axios'
 import Spinner from '../components/Spinner'
 import moment from 'moment'
-import {UnderlineOutlined, AreaChartOutlined, UnorderedListOutlined} from '@ant-design/icons'
+import {AreaChartOutlined, UnorderedListOutlined , EditOutlined, DeleteOutlined} from '@ant-design/icons'
 import Analytics from '../components/Analytics';
 
 const {RangePicker} = DatePicker;
@@ -17,16 +17,34 @@ const HomePage = () => {
   const [selectedDate, setSelectedDate] = useState([]);
   const [type , setType] = useState("all");
   const [viewDate , setViewData] = useState('table');
+  const [editable , setEditable] = useState(false);
 
   
   const submitHandler = async(values)=>{
     try {
       const user = JSON.parse(localStorage.getItem('user'));
       setLoading(true);
-      await axios.post('/transactions/add-transaction' , {...values , userid : user._id});
-      setLoading(false);
-      message.success("Transaction Added Successfully")
+
+      if (editable){
+        await axios.post('/transactions/edit-transaction' , 
+        {
+          payload : {
+            ...values , 
+            userId : user._id
+          },
+          transactionId : editable._id
+        });
+        setLoading(false);
+        message.success("Transaction Updated Successfully")
+      }else{
+        await axios.post('/transactions/add-transaction' , 
+        {...values , userid : user._id});
+        setLoading(false);
+        message.success("Transaction Added Successfully")
+      }
+
       setShowModal(false);
+      setEditable(false);
 
     } catch (error) {
       setLoading(false);
@@ -62,7 +80,16 @@ const HomePage = () => {
       dataIndex : "reference",
     },
     {
-      title : "Actions"
+      title : "Actions",
+      render : (text , record) => (
+        <div>
+          <EditOutlined onClick = {()=>{
+            setEditable(record);
+            setShowModal(true);
+          }}/>
+          <DeleteOutlined className = "mx-2"/>
+        </div>
+      )
     }
   ];
 
@@ -141,12 +168,13 @@ const HomePage = () => {
         </div>
 
         <Modal 
-        title= "Add Transaction"
+        title= {editable ? 'Edit Transaction' : 'Add Transaction'}
         open={showModal}
         onCancel={()=>setShowModal(false)}
         footer={null}
         >
-            <Form layout='vertical' onFinish={submitHandler}>
+            <Form layout='vertical' onFinish={submitHandler} 
+              initialValues={editable}>
               <Form.Item name="amount" label="Amount">
                 <Input type='text'/>
               </Form.Item>

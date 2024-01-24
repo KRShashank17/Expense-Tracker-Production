@@ -26,7 +26,7 @@ const HomePage = () => {
       setLoading(true);
 
       if (editable){
-        await axios.post('/transactions/edit-transaction' , 
+        await axios.post('/api/v1/transactions/edit-transaction' , 
         {
           payload : {
             ...values , 
@@ -37,7 +37,7 @@ const HomePage = () => {
         setLoading(false);
         message.success("Transaction Updated Successfully")
       }else{
-        await axios.post('/transactions/add-transaction' , 
+        await axios.post('/api/v1/transactions/add-transaction' , 
         {...values , userid : user._id});
         setLoading(false);
         message.success("Transaction Added Successfully")
@@ -55,7 +55,7 @@ const HomePage = () => {
   const deleteHandler = async(record) => {
     try {
       setLoading(true);
-      await axios.post('/transactions/delete-transaction', {transactionId : record._id});
+      await axios.post('/api/v1/transactions/delete-transaction', {transactionId : record._id});
       setLoading(false);
       message.success("Transaction Deleted Successfully");
     }catch(error){
@@ -112,7 +112,7 @@ const HomePage = () => {
       try {
         const user = JSON.parse(localStorage.getItem('user'));
         setLoading(true);
-        const res = await axios.post('/transactions/get-transaction', 
+        const res = await axios.post('/api/v1/transactions/get-transaction', 
         {userid : user._id , 
           frequency ,
           selectedDate ,
@@ -151,7 +151,7 @@ const HomePage = () => {
           <div >
             <h6>Select Type</h6>
             <Select value={type} onChange={(values)=>setType(values)}>
-              <Select.Option value='all'>All Entires</Select.Option>
+              <Select.Option value='all'>_  _ALL_  _</Select.Option>
               <Select.Option value='income'>INCOME</Select.Option>
               <Select.Option value='expense'>EXPENSE</Select.Option>
             </Select>
